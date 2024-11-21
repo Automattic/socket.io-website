@@ -4,7 +4,7 @@ sidebar_position: 2
 slug: /how-it-works/
 ---
 
-The bidirectional channel between the Socket.IO server (Node.js) and the Socket.IO client (browser, Node.js, or [another programming language](index.md#what-socketio-is)) is established with a [WebSocket connection](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) whenever possible, and will use HTTP long-polling as fallback.
+The bidirectional channel between the Socket.IO server (Node.js or [another programming language](index.md#server-implementations)) and the Socket.IO client (browser, Node.js, or [another programming language](index.md#client-implementations)) is established with a [WebSocket connection](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) whenever possible, and will use HTTP long-polling as fallback.
 
 The Socket.IO codebase is split into two distinct layers:
 
