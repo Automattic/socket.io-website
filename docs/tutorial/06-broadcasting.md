@@ -15,12 +15,14 @@ In order to send an event to everyone, Socket.IO gives us the `io.emit()` method
 
 ```js
 // this will emit the event to all connected sockets
+// put this code on index.js file
 io.emit('hello', 'world'); 
 ```
 
 If you want to send a message to everyone except for a certain emitting socket, we have the `broadcast` flag for emitting from that socket:
 
 ```js
+// put this code on index.js file
 io.on('connection', (socket) => {
   socket.broadcast.emit('hi');
 });
@@ -29,6 +31,7 @@ io.on('connection', (socket) => {
 In this case, for the sake of simplicity we’ll send the message to everyone, including the sender.
 
 ```js
+replace this line of code from index.js 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
