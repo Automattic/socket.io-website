@@ -175,15 +175,10 @@ Content of `Caddyfile` for [Caddy 2](https://caddyserver.com/v2)
 
 ```
 example.com {
-  rewrite /path /path/
-  handle_path /path/* {
-    rewrite * /socket.io{path}
-    reverse_proxy localhost:3000
-  }
+    reverse_proxy /socket.io/* localhost:3000
 }
 ```
 
 Related
 
-- [Solution forum post](https://caddy.community/t/i-cant-get-socket-io-proxy-to-work-on-v2/8703/2)
-- [Caddyfile directives](https://caddyserver.com/docs/caddyfile/directives)
+- [Caddyfile reverse_proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#reverse-proxy)
