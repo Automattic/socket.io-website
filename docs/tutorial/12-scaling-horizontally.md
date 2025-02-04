@@ -38,7 +38,7 @@ So let's install the cluster adapter:
   <TabItem value="npm" label="NPM" default>
 
 ```sh
-npm install @socket.io/cluster-adapter
+npm install '@socket.io/cluster-adapter'
 ```
 
   </TabItem>
