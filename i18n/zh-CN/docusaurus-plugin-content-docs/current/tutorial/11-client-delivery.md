@@ -1,47 +1,47 @@
 ---
-title: "Tutorial step #8 - Client delivery"
-sidebar_label: "Step #8: Client delivery"
+title: "教程步骤 #8 - 客户端消息传递"
+sidebar_label: "步骤 #8: 客户端消息传递"
 slug: step-8
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Client delivery
+# 客户端消息传递
 
-Let's see how we can make sure that the server always receives the messages sent by the clients.
+让我们看看如何确保服务器始终接收到客户端发送的消息。
 
 :::info
 
-By default, Socket.IO provides an "at most once" guarantee of delivery (also known as "fire and forget"), which means that there will be no retry in case the message does not reach the server.
+默认情况下，Socket.IO 提供“最多一次”的传递保证（也称为“发送即忘”），这意味着如果消息未到达服务器，将不会重试。
 
 :::
 
-## Buffered events {#buffered-events}
+## 缓冲事件
 
-When a client gets disconnected, any call to `socket.emit()` is buffered until reconnection:
+当客户端断开连接时，任何对 `socket.emit()` 的调用都会被缓冲，直到重新连接：
 
 <video controls width="100%"><source src="/videos/tutorial/buffered-events.mp4" /></video>
 
-In the video above, the "realtime" message is buffered until the connection is reestablished.
+在上面的视频中，“实时”消息被缓冲，直到连接重新建立。
 
-This behavior might be totally sufficient for your application. However, there are a few cases where a message could be lost:
+这种行为可能完全满足您的应用需求。然而，在以下几种情况下，消息可能会丢失：
 
-- the connection is severed while the event is being sent
-- the server crashes or get restarted while processing the event
-- the database is temporarily not available
+- 在事件发送过程中连接中断
+- 服务器在处理事件时崩溃或重启
+- 数据库暂时不可用
 
-## At least once {#at-least-once}
+## 至少一次
 
-We can implement an "at least once" guarantee:
+我们可以实现“至少一次”的传递保证：
 
-- manually with an acknowledgement:
+- 手动使用确认机制：
 
 ```js
 function emit(socket, event, arg) {
   socket.timeout(5000).emit(event, arg, (err) => {
     if (err) {
-      // no ack from the server, let's retry
+      // 服务器没有确认，重试
       emit(socket, event, arg);
     }
   });
@@ -50,7 +50,7 @@ function emit(socket, event, arg) {
 emit(socket, 'hello', 'world');
 ```
 
-- or with the `retries` option:
+- 或使用 `retries` 选项：
 
 ```js
 const socket = io({
@@ -61,12 +61,12 @@ const socket = io({
 socket.emit('hello', 'world');
 ```
 
-In both cases, the client will retry to send the message until it gets an acknowledgement from the server:
+在这两种情况下，客户端将重试发送消息，直到收到服务器的确认：
 
 ```js
 io.on('connection', (socket) => {
   socket.on('hello', (value, callback) => {
-    // once the event is successfully handled
+    // 一旦事件成功处理
     callback();
   });
 })
@@ -74,17 +74,17 @@ io.on('connection', (socket) => {
 
 :::tip
 
-With the `retries` option, the order of the messages is guaranteed, as the messages are queued and sent one by one. This is not the case with the first option.
+使用 `retries` 选项时，消息的顺序是有保证的，因为消息是逐个排队发送的。第一种方法则不保证顺序。
 
 :::
 
-## Exactly once {#exactly-once}
+## 精确一次
 
-The problem with retries is that the server might now receive the same message multiple times, so it needs a way to uniquely identify each message, and only store it once in the database.
+重试的问题在于服务器可能会多次接收到相同的消息，因此需要一种方法来唯一标识每条消息，并且只在数据库中存储一次。
 
-Let's see how we can implement an "exactly once" guarantee in our chat application.
+让我们看看如何在聊天应用中实现“精确一次”的传递保证。
 
-We will start by assigning a unique identifier to each message on the client side:
+我们将从客户端为每条消息分配一个唯一标识符开始：
 
 <Tabs groupId="syntax">
   <TabItem value="es6" label="ES6" default>
@@ -99,7 +99,7 @@ We will start by assigning a unique identifier to each message on the client sid
       serverOffset: 0
     },
     // highlight-start
-    // enable retries
+    // 启用重试
     ackTimeout: 10000,
     retries: 3,
     // highlight-end
@@ -113,7 +113,7 @@ We will start by assigning a unique identifier to each message on the client sid
     e.preventDefault();
     if (input.value) {
       // highlight-start
-      // compute a unique offset
+      // 计算唯一偏移量
       const clientOffset = `${socket.id}-${counter++}`;
       socket.emit('chat message', input.value, clientOffset);
       // highlight-end
@@ -144,7 +144,7 @@ We will start by assigning a unique identifier to each message on the client sid
       serverOffset: 0
     },
     // highlight-start
-    // enable retries
+    // 启用重试
     ackTimeout: 10000,
     retries: 3,
     // highlight-end
@@ -158,7 +158,7 @@ We will start by assigning a unique identifier to each message on the client sid
     e.preventDefault();
     if (input.value) {
       // highlight-start
-      // compute a unique offset
+      // 计算唯一偏移量
       var clientOffset = `${socket.id}-${counter++}`;
       socket.emit('chat message', input.value, clientOffset);
       // highlight-end
@@ -181,13 +181,13 @@ We will start by assigning a unique identifier to each message on the client sid
 
 :::note
 
-The `socket.id` attribute is a random 20-characters identifier which is assigned to each connection.
+`socket.id` 属性是分配给每个连接的随机20字符标识符。
 
-We could also have used [`getRandomValues()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues) to generate a unique offset.
+我们也可以使用 [`getRandomValues()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues) 来生成唯一偏移量。
 
 :::
 
-And then we store this offset alongside the message on the server side:
+然后我们在服务器端将此偏移量与消息一起存储：
 
 ```js title="index.js"
 // [...]
@@ -202,17 +202,17 @@ io.on('connection', async (socket) => {
     } catch (e) {
       // highlight-start
       if (e.errno === 19 /* SQLITE_CONSTRAINT */ ) {
-        // the message was already inserted, so we notify the client
+        // 消息已插入，因此通知客户端
         callback();
       } else {
-        // nothing to do, just let the client retry
+        // 无需操作，让客户端重试
       }
       return;
       // highlight-end
     }
     io.emit('chat message', msg, result.lastID);
     // highlight-start
-    // acknowledge the event
+    // 确认事件
     callback();
     // highlight-end
   });
@@ -226,7 +226,7 @@ io.on('connection', async (socket) => {
         }
       )
     } catch (e) {
-      // something went wrong
+      // 出现错误
     }
   }
 });
@@ -234,15 +234,15 @@ io.on('connection', async (socket) => {
 // [...]
 ```
 
-This way, the UNIQUE constraint on the `client_offset` column prevents the duplication of the message.
+这样，`client_offset` 列上的 UNIQUE 约束可以防止消息重复。
 
 :::caution
 
-Do not forget to acknowledge the event, or else the client will keep retrying (up to `retries` times). 
+不要忘记确认事件，否则客户端将继续重试（最多 `retries` 次）。
 
 ```js
 socket.on('chat message', async (msg, clientOffset, callback) => {
-  // ... and finally
+  // ... 最后
   callback();
 });
 ```
@@ -251,18 +251,18 @@ socket.on('chat message', async (msg, clientOffset, callback) => {
 
 :::info
 
-Again, the default guarantee ("at most once") might be sufficient for your application, but now you know how it can be made more reliable.
+同样，默认的“最多一次”保证可能足以满足您的应用需求，但现在您知道如何提高其可靠性。
 
 :::
 
-In the next step, we will see how we can scale our application horizontally.
+在下一步中，我们将了解如何横向扩展我们的应用。
 
 :::info
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+您可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/cjs/step8?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/cjs/step8?file=index.js)
@@ -271,7 +271,7 @@ You can run this example directly in your browser on:
   </TabItem>
   <TabItem value="mjs" label="ES modules" attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+您可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/esm/step8?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/esm/step8?file=index.js)

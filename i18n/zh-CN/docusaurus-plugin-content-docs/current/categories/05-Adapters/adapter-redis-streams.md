@@ -1,31 +1,31 @@
 ---
-title: Redis Streams adapter
+title: Redis Streams 适配器
 sidebar_position: 3
 slug: /redis-streams-adapter/
 ---
 
-## How it works {#how-it-works}
+## 工作原理 {#how-it-works}
 
-The adapter will use a [Redis stream](https://redis.io/docs/data-types/streams/) to forward packets between the Socket.IO servers.
+该适配器将使用 [Redis 流](https://redis.io/docs/data-types/streams/) 在 Socket.IO 服务器之间转发数据包。
 
-The main difference with the existing Redis adapter (which use the [Redis Pub/Sub mechanism](https://redis.io/docs/manual/pubsub/)) is that this adapter will properly handle any temporary disconnection to the Redis server and resume the stream without losing any packets.
+与现有的 Redis 适配器（使用 [Redis Pub/Sub 机制](https://redis.io/docs/manual/pubsub/)）的主要区别在于，该适配器将正确处理与 Redis 服务器的任何临时断开连接，并在不丢失任何数据包的情况下恢复流。
 
-Notes:
+注意事项：
 
-- a single stream is used for all namespaces
-- the `maxLen` option allows to limit the size of the stream
-- unlike the adapter based on Redis PUB/SUB mechanism, this adapter will properly handle any temporary disconnection to the Redis server and resume the stream
-- if [connection state recovery](../01-Documentation/connection-state-recovery.md) is enabled, the sessions will be stored in Redis as a classic key/value pair
+- 所有命名空间使用单个流
+- `maxLen` 选项允许限制流的大小
+- 与基于 Redis PUB/SUB 机制的适配器不同，该适配器将正确处理与 Redis 服务器的任何临时断开连接，并恢复流
+- 如果启用了[连接状态恢复](../01-Documentation/connection-state-recovery.md)，会话将作为经典的键/值对存储在 Redis 中
 
-Source code: https://github.com/socketio/socket.io-redis-streams-adapter
+源代码: https://github.com/socketio/socket.io-redis-streams-adapter
 
-## Installation {#installation}
+## 安装 {#installation}
 
 ```
 npm install @socket.io/redis-streams-adapter redis
 ```
 
-## Usage {#usage}
+## 使用方法 {#usage}
 
 ```js
 import { createClient } from "redis";
@@ -43,28 +43,28 @@ const io = new Server({
 io.listen(3000);
 ```
 
-## Options {#options}
+## 选项 {#options}
 
-| Name                | Description                                                        | Default value |
-|---------------------|--------------------------------------------------------------------|---------------|
-| `streamName`        | The name of the Redis stream.                                      | `socket.io`   |
-| `maxLen`            | The maximum size of the stream. Almost exact trimming (~) is used. | `10_000`      |
-| `readCount`         | The number of elements to fetch per XREAD call.                    | `100`         |
-| `heartbeatInterval` | The number of ms between two heartbeats.                           | `5_000`       |
-| `heartbeatTimeout`  | The number of ms without heartbeat before we consider a node down. | `10_000`      |
+| 名称                | 描述                                                              | 默认值        |
+|---------------------|-------------------------------------------------------------------|---------------|
+| `streamName`        | Redis 流的名称。                                                  | `socket.io`   |
+| `maxLen`            | 流的最大大小。使用近似修剪（~）。                                 | `10_000`      |
+| `readCount`         | 每次 XREAD 调用要获取的元素数量。                                 | `100`         |
+| `heartbeatInterval` | 两次心跳之间的毫秒数。                                            | `5_000`       |
+| `heartbeatTimeout`  | 在我们认为节点宕机之前没有心跳的毫秒数。                          | `10_000`      |
 
-## Common questions {#common-questions}
+## 常见问题 {#common-questions}
 
-- Do I still need to enable sticky sessions when using the Redis Streams adapter?
+- 使用 Redis Streams 适配器时，我仍然需要启用粘性会话吗？
 
-Yes. Failing to do so will result in HTTP 400 responses (you are reaching a server that is not aware of the Socket.IO session).
+是的。如果不这样做，将导致 HTTP 400 响应（您正在访问一个不了解 Socket.IO 会话的服务器）。
 
-More information can be found [here](../02-Server/using-multiple-nodes.md#why-is-sticky-session-required).
+更多信息请参见[这里](../02-Server/using-multiple-nodes.md#why-is-sticky-session-required)。
 
-- What happens when the Redis server is down?
+- 当 Redis 服务器宕机时会发生什么？
 
-Unlike the classic [Redis adapter](./adapter-redis.md), this adapter will properly handle any temporary disconnection to the Redis server and resume the stream without losing any packets.
+与经典的 [Redis 适配器](./adapter-redis.md)不同，该适配器将正确处理与 Redis 服务器的任何临时断开连接，并在不丢失任何数据包的情况下恢复流。
 
-## Latest releases {#latest-releases}
+## 最新版本 {#latest-releases}
 
-- [0.1.0](https://github.com/socketio/socket.io-redis-streams-adapter/releases/tag/0.1.0) (April 2023)
+- [0.1.0](https://github.com/socketio/socket.io-redis-streams-adapter/releases/tag/0.1.0) (2023年4月)

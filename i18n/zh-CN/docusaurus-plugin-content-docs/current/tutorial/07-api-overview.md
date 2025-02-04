@@ -1,6 +1,6 @@
 ---
-title: "Tutorial - Overview of the API"
-sidebar_label: "Overview of the API"
+title: "教程 - API 概览"
+sidebar_label: "API 概览"
 slug: api-overview
 toc_max_heading_level: 4
 ---
@@ -10,28 +10,28 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Overview of the API
+# API 概览
 
-Before we go any further, let's take a quick tour of the API provided by Socket.IO:
+在深入了解之前，让我们快速浏览一下 Socket.IO 提供的 API：
 
-## Common API {#common-api}
+## 通用 API
 
-The following methods are available for both the client and the server.
+以下方法可用于客户端和服务器。
 
-### Basic emit {#basic-emit}
+### 基本的 emit
 
-As we have seen in [step #4](05-emitting-events.md), you can send any data to the other side with `socket.emit()`:
+如我们在[步骤 #4](05-emitting-events.md)中所见，可以使用 `socket.emit()` 向另一端发送任何数据：
 
 <Tabs>
-  <TabItem value="From client to server" label="From client to server">
+  <TabItem value="从客户端到服务器" label="从客户端到服务器">
 
-*Client*
+*客户端*
 
 ```js
 socket.emit('hello', 'world');
 ```
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -42,9 +42,9 @@ io.on('connection', (socket) => {
 ```
 
   </TabItem>
-  <TabItem value="From server to client" label="From server to client">
+  <TabItem value="从服务器到客户端" label="从服务器到客户端">
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-*Client*
+*客户端*
 
 ```js
 socket.on('hello', (arg) => {
@@ -63,18 +63,18 @@ socket.on('hello', (arg) => {
   </TabItem>
 </Tabs>
 
-You can send any number of arguments, and all serializable data structures are supported, including binary objects like [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) or [Buffer](https://nodejs.org/docs/latest/api/buffer.html#buffer_buffer) (Node.js only):
+你可以发送任意数量的参数，并且支持所有可序列化的数据结构，包括二进制对象，如 [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)、[TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) 或 [Buffer](https://nodejs.org/docs/latest/api/buffer.html#buffer_buffer)（仅限 Node.js）：
 
 <Tabs>
-  <TabItem value="From client to server" label="From client to server">
+  <TabItem value="从客户端到服务器" label="从客户端到服务器">
 
-*Client*
+*客户端*
 
 ```js
 socket.emit('hello', 1, '2', { 3: '4', 5: Uint8Array.from([6]) });
 ```
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -87,9 +87,9 @@ io.on('connection', (socket) => {
 ```
 
   </TabItem>
-  <TabItem value="From server to client" label="From server to client">
+  <TabItem value="从服务器到客户端" label="从服务器到客户端">
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-*Client*
+*客户端*
 
 ```js
 socket.on('hello', (arg1, arg2, arg3) => {
@@ -112,44 +112,44 @@ socket.on('hello', (arg1, arg2, arg3) => {
 
 :::tip
 
-Calling `JSON.stringify()` on objects is not needed:
+不需要对对象调用 `JSON.stringify()`：
 
 ```js
-// BAD
+// 错误示例
 socket.emit('hello', JSON.stringify({ name: 'John' }));
 
-// GOOD
+// 正确示例
 socket.emit('hello', { name: 'John' });
 ```
 
 :::
 
-### Acknowledgements {#acknowledgements}
+### 确认机制
 
-Events are great, but in some cases you may want a more classic request-response API. In Socket.IO, this feature is named "acknowledgements".
+事件非常有用，但在某些情况下，你可能需要更经典的请求-响应 API。在 Socket.IO 中，这个功能被称为“确认机制”。
 
-It comes in two flavors:
+它有两种形式：
 
-#### With a callback function {#with-a-callback-function}
+#### 使用回调函数
 
-You can add a callback as the last argument of the `emit()`, and this callback will be called once the other side has acknowledged the event:
+你可以在 `emit()` 的最后一个参数中添加一个回调函数，当另一端确认事件后，该回调将被调用：
 
 <Tabs>
-  <TabItem value="From client to server" label="From client to server">
+  <TabItem value="从客户端到服务器" label="从客户端到服务器">
 
-*Client*
+*客户端*
 
 ```js
 socket.timeout(5000).emit('request', { foo: 'bar' }, 'baz', (err, response) => {
   if (err) {
-    // the server did not acknowledge the event in the given delay
+    // 服务器未在给定时间内确认事件
   } else {
     console.log(response.status); // 'ok'
   }
 });
 ```
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -164,15 +164,15 @@ io.on('connection', (socket) => {
 ```
 
   </TabItem>
-  <TabItem value="From server to client" label="From server to client">
+  <TabItem value="从服务器到客户端" label="从服务器到客户端">
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
   socket.timeout(5000).emit('request', { foo: 'bar' }, 'baz', (err, response) => {
     if (err) {
-      // the client did not acknowledge the event in the given delay
+      // 客户端未在给定时间内确认事件
     } else {
       console.log(response.status); // 'ok'
     }
@@ -180,7 +180,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-*Client*
+*客户端*
 
 ```js
 socket.on('request', (arg1, arg2, callback) => {
@@ -195,25 +195,25 @@ socket.on('request', (arg1, arg2, callback) => {
   </TabItem>
 </Tabs>
 
-#### With a Promise {#with-a-promise}
+#### 使用 Promise
 
-The `emitWithAck()` method provides the same functionality, but returns a Promise which will resolve once the other side acknowledges the event:
+`emitWithAck()` 方法提供相同的功能，但返回一个 Promise，一旦另一端确认事件，该 Promise 将被解析：
 
 <Tabs>
-  <TabItem value="From client to server" label="From client to server">
+  <TabItem value="从客户端到服务器" label="从客户端到服务器">
 
-*Client*
+*客户端*
 
 ```js
 try {
   const response = await socket.timeout(5000).emitWithAck('request', { foo: 'bar' }, 'baz');
   console.log(response.status); // 'ok'
 } catch (e) {
-  // the server did not acknowledge the event in the given delay
+  // 服务器未在给定时间内确认事件
 }
 ```
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', (socket) => {
@@ -228,9 +228,9 @@ io.on('connection', (socket) => {
 ```
 
   </TabItem>
-  <TabItem value="From server to client" label="From server to client">
+  <TabItem value="从服务器到客户端" label="从服务器到客户端">
 
-*Server*
+*服务器*
 
 ```js
 io.on('connection', async (socket) => {
@@ -238,12 +238,12 @@ io.on('connection', async (socket) => {
     const response = await socket.timeout(5000).emitWithAck('request', { foo: 'bar' }, 'baz');
     console.log(response.status); // 'ok'
   } catch (e) {
-    // the client did not acknowledge the event in the given delay
+    // 客户端未在给定时间内确认事件
   }
 });
 ```
 
-*Client*
+*客户端*
 
 ```js
 socket.on('request', (arg1, arg2, callback) => {
@@ -260,21 +260,21 @@ socket.on('request', (arg1, arg2, callback) => {
 
 :::caution
 
-Environments that [do not support Promises](https://caniuse.com/promises) (such as Internet Explorer) will need to add a polyfill or use a compiler like [babel](https://babeljs.io/) in order to use this feature (but this is out of the scope of this tutorial).
+不支持 [Promises](https://caniuse.com/promises) 的环境（如 Internet Explorer）需要添加 polyfill 或使用类似 [babel](https://babeljs.io/) 的编译器才能使用此功能（但这超出了本教程的范围）。
 
 :::
 
-### Catch-all listeners {#catch-all-listeners}
+### 全局监听器
 
-A catch-all listeners is a listener that will be called for any incoming event. This is useful for debugging your application:
+全局监听器是一个会在任何传入事件时被调用的监听器。这对于调试应用程序非常有用：
 
-*Sender*
+*发送者*
 
 ```js
 socket.emit('hello', 1, '2', { 3: '4', 5: Uint8Array.from([6]) });
 ```
 
-*Receiver*
+*接收者*
 
 ```js
 socket.onAny((eventName, ...args) => {
@@ -283,7 +283,7 @@ socket.onAny((eventName, ...args) => {
 });
 ```
 
-Similarly, for outgoing packets:
+类似地，对于传出数据包：
 
 ```js
 socket.onAnyOutgoing((eventName, ...args) => {
@@ -292,50 +292,50 @@ socket.onAnyOutgoing((eventName, ...args) => {
 });
 ```
 
-## Server API {#server-api}
+## 服务器 API
 
-### Broadcasting {#broadcasting}
+### 广播
 
-As we have seen in [step #5](06-broadcasting.md), you can broadcast an event to all connected clients with `io.emit()`:
+如我们在[步骤 #5](06-broadcasting.md)中所见，可以使用 `io.emit()` 向所有连接的客户端广播事件：
 
 ```js
 io.emit('hello', 'world');
 ```
 
 <ThemedImage
-  alt="The 'hello' event is sent to all connected clients"
+  alt="'hello' 事件被发送到所有连接的客户端"
   sources={{
     light: useBaseUrl('/images/tutorial/broadcasting.png'),
     dark: useBaseUrl('/images/tutorial/broadcasting-dark.png'),
   }}
 />
 
-### Rooms {#rooms}
+### 房间
 
-In Socket.IO jargon, a *room* is an arbitrary channel that sockets can join and leave. It can be used to broadcast events to a subset of connected clients:
+在 Socket.IO 术语中，*房间* 是一个可以让 socket 加入和离开的任意通道。它可以用于向一部分连接的客户端广播事件：
 
 ```js
 io.on('connection', (socket) => {
-  // join the room named 'some room'
+  // 加入名为 'some room' 的房间
   socket.join('some room');
   
-  // broadcast to all connected clients in the room
+  // 向房间内所有连接的客户端广播
   io.to('some room').emit('hello', 'world');
 
-  // broadcast to all connected clients except those in the room
+  // 向除房间内的客户端外的所有连接客户端广播
   io.except('some room').emit('hello', 'world');
 
-  // leave the room
+  // 离开房间
   socket.leave('some room');
 });
 ```
 
 <ThemedImage
-  alt="The 'hello' event is sent to all connected clients in the targeted room"
+  alt="'hello' 事件被发送到目标房间内的所有连接客户端"
   sources={{
     light: useBaseUrl('/images/tutorial/room.png'),
     dark: useBaseUrl('/images/tutorial/room-dark.png'),
   }}
 />
 
-That's basically it! For future reference, the whole API can be found [here](../server-api.md) (server) and [here](../client-api.md) (client).
+基本就是这样！如需参考，完整的 API 可以在[这里](../server-api.md)（服务器）和[这里](../client-api.md)（客户端）找到。

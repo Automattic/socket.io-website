@@ -3,9 +3,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 const helpItems = [
   {
-    // using 'type: "doc"' makes the link active whenever the user is on a page from the "/docs" directory
-    // see: https://github.com/facebook/docusaurus/issues/8018
-    label: "Troubleshooting",
+    // 使用 'type: "doc"' 使链接在用户位于 "/docs" 目录中的页面时处于活动状态
+    // 参见: https://github.com/facebook/docusaurus/issues/8018
+    label: "故障排除",
     to: "/docs/v4/troubleshooting-connection-issues/",
   },
   {
@@ -13,7 +13,7 @@ const helpItems = [
     href: "https://stackoverflow.com/questions/tagged/socket.io",
   },
   {
-    label: "GitHub Discussions",
+    label: "GitHub 讨论",
     href: "https://github.com/socketio/socket.io/discussions",
   },
   {
@@ -28,14 +28,14 @@ const toolsItems = [
     href: "https://cdn.socket.io",
   },
   {
-    label: "Admin UI",
+    label: "管理界面",
     href: "https://admin.socket.io",
   },
 ];
 
 const newsItems = [
   {
-    label: "Blog",
+    label: "博客",
     to: "/blog",
   },
   {
@@ -46,19 +46,19 @@ const newsItems = [
 
 const aboutItems = [
   {
-    label: "FAQ",
+    label: "常见问题",
     to: "/docs/v4/faq/",
   },
   {
-    label: "Changelog",
+    label: "更新日志",
     to: "/docs/v4/changelog/",
   },
   {
-    label: "Roadmap",
+    label: "路线图",
     href: "https://github.com/orgs/socketio/projects/3",
   },
   {
-    label: "Become a sponsor",
+    label: "成为赞助商",
     href: "https://opencollective.com/socketio",
   },
 ];
@@ -66,7 +66,7 @@ const aboutItems = [
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Socket.IO",
-  tagline: "Dinosaurs are cool",
+  tagline: "恐龙很酷",
   url: "https://socket.io",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -79,33 +79,33 @@ module.exports = {
       title: "Socket.IO",
       hideOnScroll: true,
       logo: {
-        alt: "Socket.IO logo",
+        alt: "Socket.IO 标志",
         src: "images/logo.svg",
         srcDark: "images/logo-dark.svg",
       },
       items: [
         {
           type: "dropdown",
-          label: "Docs",
+          label: "文档",
           position: "left",
           items: [
             {
               type: "doc",
-              label: "Guide",
+              label: "指南",
               docId: "categories/Documentation/index",
             },
             {
               type: "doc",
-              label: "Tutorial",
+              label: "教程",
               docId: "tutorial/introduction",
             },
             {
-              label: "Examples",
+              label: "示例",
               to: "/get-started/",
             },
             {
               type: "doc",
-              label: "Emit cheatsheet",
+              label: "Emit 速查表",
               docId: "emit-cheatsheet"
             }
           ]
@@ -114,23 +114,23 @@ module.exports = {
           type: "doc",
           docId: "server-api",
           position: "left",
-          label: "Server API",
+          label: "服务器 API",
         },
         {
           type: "doc",
           docId: "client-api",
           position: "left",
-          label: "Client API",
+          label: "客户端 API",
         },
         {
           type: "dropdown",
-          label: "Ecosystem",
+          label: "生态系统",
           position: "left",
           items: [
             {
               type: "html",
               className: "dropdown-category",
-              value: "<b>Help</b>",
+              value: "<b>帮助</b>",
             },
             ...helpItems,
             {
@@ -140,7 +140,7 @@ module.exports = {
             {
               type: "html",
               className: "dropdown-category",
-              value: "<b>News</b>",
+              value: "<b>新闻</b>",
             },
             ...newsItems,
             {
@@ -150,14 +150,14 @@ module.exports = {
             {
               type: "html",
               className: "dropdown-category",
-              value: "<b>Tools</b>",
+              value: "<b>工具</b>",
             },
             ...toolsItems,
           ],
         },
         {
           type: "dropdown",
-          label: "About",
+          label: "关于",
           position: "left",
           items: aboutItems,
         },
@@ -170,7 +170,7 @@ module.exports = {
               value: '<hr class="dropdown-separator">',
             },
             {
-              label: "Changelog",
+              label: "更新日志",
               to: "/docs/v4/changelog/",
               activeBaseRegex: 'never',
             }
@@ -191,48 +191,48 @@ module.exports = {
       style: "dark",
       links: [
         {
-          title: "Documentation",
+          title: "文档",
           items: [
             {
-              label: "Guide",
+              label: "指南",
               to: "/docs/v4/",
             },
             {
-              label: "Tutorial",
+              label: "教程",
               to: "/docs/v4/tutorial/introduction",
             },
             {
-              label: "Examples",
+              label: "示例",
               to: "/get-started/",
             },
             {
-              label: "Server API",
+              label: "服务器 API",
               to: "/docs/v4/server-api/",
             },
             {
-              label: "Client API",
+              label: "客户端 API",
               to: "/docs/v4/client-api/",
             },
           ],
         },
         {
-          title: "Help",
+          title: "帮助",
           items: helpItems,
         },
         {
-          title: "News",
+          title: "新闻",
           items: newsItems,
         },
         {
-          title: "Tools",
+          title: "工具",
           items: toolsItems,
         },
         {
-          title: "About",
+          title: "关于",
           items: aboutItems,
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Socket.IO`,
+      copyright: `版权所有 © ${new Date().getFullYear()} Socket.IO`,
     },
     colorMode: {
       defaultMode: 'light',
@@ -250,7 +250,7 @@ module.exports = {
     },
     announcementBar: {
       content:
-        'Latest blog post (July 25, 2024): <a href="/blog/npm-package-provenance/">npm package provenance</a>.',
+        '最新博客文章 (2024年7月25日): <a href="/blog/npm-package-provenance/">npm 包来源</a>.',
       backgroundColor: "#25c2a0",
       isCloseable: true,
     },
@@ -303,7 +303,7 @@ module.exports = {
     ],
   ],
   i18n: {
-    defaultLocale: "en",
+    defaultLocale: "zh-CN",
     locales: ["en", "fr", "pt-br", "zh-CN"],
   }
 };

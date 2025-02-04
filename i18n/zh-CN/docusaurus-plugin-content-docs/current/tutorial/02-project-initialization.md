@@ -1,17 +1,17 @@
 ---
-title: "Tutorial step #1 - Project initialization"
-sidebar_label: "Step #1: Project initialization"
+title: "教程步骤 #1 - 项目初始化"
+sidebar_label: "步骤 #1: 项目初始化"
 slug: step-1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Project initialization
+# 项目初始化
 
-The first goal is to set up a simple HTML webpage that serves out a form and a list of messages. We’re going to use the Node.JS web framework `express` to this end. Make sure [Node.JS](https://nodejs.org) is installed.
+我们的首要目标是设置一个简单的 HTML 网页，用于提供一个表单和消息列表。我们将使用 Node.JS 的 Web 框架 `express` 来实现这一目标。请确保已安装 [Node.JS](https://nodejs.org)。
 
-First let’s create a `package.json` manifest file that describes our project. I recommend you place it in a dedicated empty directory (I’ll call mine `socket-chat-example`).
+首先，让我们创建一个 `package.json` 清单文件来描述我们的项目。建议将其放在一个专用的空目录中（我将其命名为 `socket-chat-example`）。
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -44,17 +44,17 @@ First let’s create a `package.json` manifest file that describes our project. 
 
 :::caution
 
-The "name" property must be unique, you cannot use a value like "socket.io" or "express", because npm will complain when installing the dependency.
+"name" 属性必须是唯一的，不能使用类似 "socket.io" 或 "express" 的值，因为在安装依赖时 npm 会报错。
 
 :::
 
-Now, in order to easily populate the `dependencies` property with the things we need, we’ll use `npm install`:
+现在，为了方便地填充我们需要的 `dependencies` 属性，我们将使用 `npm install`：
 
 ```
 npm install express@4
 ```
 
-Once it's installed we can create an `index.js` file that will set up our application.
+安装完成后，我们可以创建一个 `index.js` 文件来设置我们的应用程序。
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -97,28 +97,28 @@ server.listen(3000, () => {
   </TabItem>
 </Tabs>
 
-This means that:
+这意味着：
 
-- Express initializes `app` to be a function handler that you can supply to an HTTP server (as seen in line 5).
-- We define a route handler `/` that gets called when we hit our website home.
-- We make the http server listen on port 3000.
+- Express 初始化 `app` 为一个函数处理器，可以提供给 HTTP 服务器（如第 5 行所示）。
+- 我们定义了一个路由处理器 `/`，当访问我们的网站主页时会被调用。
+- 我们让 HTTP 服务器监听 3000 端口。
 
-If you run `node index.js` you should see the following:
+如果运行 `node index.js`，你应该会看到以下内容：
 
-<img src="/images/chat-1.png" alt="A console saying that the server has started listening on port 3000" />
+<img src="/images/chat-1.png" alt="控制台显示服务器已开始监听 3000 端口" />
 
-And if you point your browser to `http://localhost:3000`:
+如果将浏览器指向 `http://localhost:3000`：
 
-<img src="/images/chat-2.png" alt="A browser displaying a big 'Hello World'" />
+<img src="/images/chat-2.png" alt="浏览器显示一个大的 'Hello World'" />
 
-So far, so good!
+到目前为止，一切顺利！
 
 :::info
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/cjs/step1?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/cjs/step1?file=index.js)
@@ -127,7 +127,7 @@ You can run this example directly in your browser on:
   </TabItem>
   <TabItem value="mjs" label="ES modules" attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/esm/step1?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/esm/step1?file=index.js)

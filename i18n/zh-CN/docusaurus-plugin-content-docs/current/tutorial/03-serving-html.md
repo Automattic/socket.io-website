@@ -1,17 +1,17 @@
 ---
-title: "Tutorial step #2 - Serving HTML"
-sidebar_label: "Step #2: Serving HTML"
+title: "教程步骤 #2 - 提供 HTML 服务"
+sidebar_label: "步骤 #2: 提供 HTML 服务"
 slug: step-2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Serving HTML
+# 提供 HTML
 
-So far in `index.js` we’re calling `res.send` and passing it a string of HTML. Our code would look very confusing if we just placed our entire application’s HTML there, so instead we're going to create a `index.html` file and serve that instead.
+到目前为止，在 `index.js` 中我们使用 `res.send` 并传递一个 HTML 字符串。如果将整个应用程序的 HTML 都放在这里，代码会显得非常混乱，因此我们将创建一个 `index.html` 文件并提供该文件。
 
-Let’s refactor our route handler to use `sendFile` instead.
+让我们重构路由处理器以使用 `sendFile`。
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -67,7 +67,7 @@ server.listen(3000, () => {
   </TabItem>
 </Tabs>
 
-Put the following in your `index.html` file:
+在你的 `index.html` 文件中放入以下内容：
 
 ```html
 <!DOCTYPE html>
@@ -97,16 +97,16 @@ Put the following in your `index.html` file:
 </html>
 ```
 
-If you restart the process (by hitting Control+C and running `node index.js` again) and refresh the page it should look like this:
+如果你重启进程（按下 Control+C 然后再次运行 `node index.js`）并刷新页面，它应该看起来像这样：
 
-<img src="/images/chat-3.png" alt="A browser displaying an input and a 'Send' button" />
+<img src="/images/chat-3.png" alt="浏览器显示一个输入框和一个 'Send' 按钮" />
 
 :::info
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/cjs/step2?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/cjs/step2?file=index.js)
@@ -115,7 +115,7 @@ You can run this example directly in your browser on:
   </TabItem>
   <TabItem value="mjs" label="ES modules" attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/esm/step2?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/esm/step2?file=index.js)

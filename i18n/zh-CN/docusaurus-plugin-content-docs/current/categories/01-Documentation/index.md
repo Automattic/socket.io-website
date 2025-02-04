@@ -9,68 +9,68 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 :::tip
 
-If you are new to Socket.IO, we recommend checking out our [tutorial](../../tutorial/01-introduction.md).
+如果您是 Socket.IO 的新手，我们建议您查看我们的[教程](../../tutorial/01-introduction.md)。
 
 :::
 
 ## 什么是 Socket.IO {#what-socketio-is}
 
-Socket.IO 是一个库，可以在客户端和服务器之间实现 **低延迟**, **双向** 和 **基于事件的** 通信。
+Socket.IO 是一个库，可以在客户端和服务器之间实现 **低延迟**、**双向** 和 **基于事件的** 通信。
 
 <ThemedImage
-  alt="Diagram of a communication between a server and a client"
+  alt="服务器和客户端之间通信的示意图"
   sources={{
     light: useBaseUrl('/images/bidirectional-communication2.png'),
     dark: useBaseUrl('/images/bidirectional-communication2-dark.png'),
   }}
 />
 
-The Socket.IO connection can be established with different low-level transports:
+Socket.IO 连接可以通过不同的低级传输方式建立：
 
-- HTTP long-polling
+- HTTP 长轮询
 - [WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSockets_API)
 - [WebTransport](https://developer.mozilla.org/zh-CN/docs/Web/API/WebTransport_API)
 
-Socket.IO will automatically pick the best available option, depending on:
+Socket.IO 会根据以下情况自动选择最佳可用选项：
 
-- the capabilities of the browser (see [here](https://caniuse.com/websockets) and [here](https://caniuse.com/webtransport))
-- the network (some networks block WebSocket and/or WebTransport connections)
+- 浏览器的能力（参见[这里](https://caniuse.com/websockets)和[这里](https://caniuse.com/webtransport)）
+- 网络（某些网络会阻止 WebSocket 和/或 WebTransport 连接）
 
-You can find more detail about that in the ["How it works" section](./how-it-works.md).
+您可以在["工作原理"部分](./how-it-works.md)找到更多详细信息。
 
-### Server implementations {#server-implementations}
+### 服务器实现 {#server-implementations}
 
-| Language             | Website                                                                                                                           |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| 语言                 | 网站                                                                                                                           |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | JavaScript (Node.js) | - [安装步骤](../02-Server/server-installation.md)<br/>- [API](../../server-api.md)<br/>- [源代码](https://github.com/socketio/socket.io) |
-| JavaScript (Deno)    | https://github.com/socketio/socket.io-deno                                                                                        |
-| Java                 | https://github.com/mrniko/netty-socketio                                                                                          |
-| Java                 | https://github.com/trinopoty/socket.io-server-java                                                                                |
-| Python               | https://github.com/miguelgrinberg/python-socketio                                                                                 |
-| Golang               | https://github.com/googollee/go-socket.io                                                                                         |
-| Rust                 | https://github.com/Totodore/socketioxide                                                                                          |
+| JavaScript (Deno)    | https://github.com/socketio/socket.io-deno                                                                                      |
+| Java                 | https://github.com/mrniko/netty-socketio                                                                                        |
+| Java                 | https://github.com/trinopoty/socket.io-server-java                                                                              |
+| Python               | https://github.com/miguelgrinberg/python-socketio                                                                               |
+| Golang               | https://github.com/googollee/go-socket.io                                                                                       |
+| Rust                 | https://github.com/Totodore/socketioxide                                                                                        |
 
-### Client implementations {#client-implementations}
+### 客户端实现 {#client-implementations}
 
-| Language                                      | Website                                                                                                                                  |
-|-----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| JavaScript (browser, Node.js or React Native) | - [安装步骤](../03-Client/client-installation.md)<br/>- [API](../../client-api.md)<br/>- [源代码](https://github.com/socketio/socket.io-client) |
-| JavaScript (for WeChat Mini-Programs)         | https://github.com/weapp-socketio/weapp.socket.io                                                                                        |
-| Java                                          | https://github.com/socketio/socket.io-client-java                                                                                        |
-| C++                                           | https://github.com/socketio/socket.io-client-cpp                                                                                         |
-| Swift                                         | https://github.com/socketio/socket.io-client-swift                                                                                       |
-| Dart                                          | https://github.com/rikulo/socket.io-client-dart                                                                                          |
-| Python                                        | https://github.com/miguelgrinberg/python-socketio                                                                                        |
-| .Net                                          | https://github.com/doghappy/socket.io-client-csharp                                                                                      |
-| Rust                                          | https://github.com/1c3t3a/rust-socketio                                                                                                  |
-| Kotlin                                        | https://github.com/icerockdev/moko-socket-io                                                                                             |
-| PHP                                           | https://github.com/ElephantIO/elephant.io                                                                                                |
+| 语言                                        | 网站                                                                                                                                  |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| JavaScript (浏览器、Node.js 或 React Native) | - [安装步骤](../03-Client/client-installation.md)<br/>- [API](../../client-api.md)<br/>- [源代码](https://github.com/socketio/socket.io-client) |
+| JavaScript (用于微信小程序)                 | https://github.com/weapp-socketio/weapp.socket.io                                                                                     |
+| Java                                        | https://github.com/socketio/socket.io-client-java                                                                                     |
+| C++                                         | https://github.com/socketio/socket.io-client-cpp                                                                                      |
+| Swift                                       | https://github.com/socketio/socket.io-client-swift                                                                                    |
+| Dart                                        | https://github.com/rikulo/socket.io-client-dart                                                                                       |
+| Python                                      | https://github.com/miguelgrinberg/python-socketio                                                                                     |
+| .Net                                        | https://github.com/doghappy/socket.io-client-csharp                                                                                   |
+| Rust                                        | https://github.com/1c3t3a/rust-socketio                                                                                               |
+| Kotlin                                      | https://github.com/icerockdev/moko-socket-io                                                                                          |
+| PHP                                         | https://github.com/ElephantIO/elephant.io                                                                                             |
 
 ## Socket.IO 不是什么 {#what-socketio-is-not}
 
 :::caution
 
-Socket.IO **不是** WebSocket实现。
+Socket.IO **不是** WebSocket 实现。
 
 :::
 
@@ -81,7 +81,7 @@ Socket.IO **不是** WebSocket实现。
 const socket = io("ws://echo.websocket.org");
 ```
 
-如果您正在寻找一个普通的 WebSocket 服务器，请查看 [ws](https://github.com/websockets/ws) 或 [µWebSockets.js](https://github.com/uNetworking/uWebSockets.js).
+如果您正在寻找一个普通的 WebSocket 服务器，请查看 [ws](https://github.com/websockets/ws) 或 [µWebSockets.js](https://github.com/uNetworking/uWebSockets.js)。
 
 还有[关于](https://github.com/nodejs/node/issues/19308)在 Node.js 核心中包含 WebSocket 服务器的讨论。
 
@@ -119,7 +119,7 @@ Socket.IO 库保持与服务器的开放 TCP 连接，这可能会导致用户�
 
 当客户端断开连接时，数据包会自动缓冲，并在重新连接时发送。
 
-更多信息[在这里](../03-Client/client-offline-behavior.md#buffered-events).
+更多信息[在这里](../03-Client/client-offline-behavior.md#buffered-events)。
 
 ### 收到后的回调 {#acknowledgements}
 
@@ -156,7 +156,7 @@ socket.timeout(5000).emit("hello", "world", (err, response) => {
 
 ### 广播 {#broadcasting}
 
-[在服务器端，您可以向所有连接的客户端](../04-Events/broadcasting-events.md)或[客户端的子集](../04-Events/rooms.md )发送事件：
+[在服务器端，您可以向所有连接的客户端](../04-Events/broadcasting-events.md)或[客户端的子集](../04-Events/rooms.md)发送事件：
 
 ```js
 // 到所有连接的客户端
@@ -168,7 +168,7 @@ io.to("news").emit("hello");
 
 这在[扩展到多个节点](../02-Server/using-multiple-nodes.md)时也有效。
 
-### 多路复用  {#multiplexing}
+### 多路复用 {#multiplexing}
 
 命名空间允许您在单个共享连接上拆分应用程序的逻辑。例如，如果您想创建一个只有授权用户才能加入的“管理员”频道，这可能很有用。
 
@@ -182,15 +182,15 @@ io.of("/admin").on("connection", (socket) => {
 });
 ```
 
-详情点击[这里](../06-Advanced/namespaces.md).
+详情点击[这里](../06-Advanced/namespaces.md)。
 
 ## 常见问题 {#common-questions}
 
 ### 现在还需要 Socket.IO 吗？ {#is-socketio-still-needed-today}
 
-[这是一个很好的问题，因为现在几乎所有地方](https://caniuse.com/mdn-api_websocket) 都支持 WebSocket 。
+[这是一个很好的问题，因为现在几乎所有地方](https://caniuse.com/mdn-api_websocket)都支持 WebSocket。
 
-话虽如此，我们相信，如果您在应用程序中使用普通的 WebSocket，您最终将需要实现 Socket.IO 中已经包含（并经过实战测试）的大部分功能，例如[重新连接](#automatic-reconnection)，[确认](#acknowledgements)或[广播](#broadcasting).
+话虽如此，我们相信，如果您在应用程序中使用普通的 WebSocket，您最终将需要实现 Socket.IO 中已经包含（并经过实战测试）的大部分功能，例如[重新连接](#automatic-reconnection)、[确认](#acknowledgements)或[广播](#broadcasting)。
 
 ### Socket.IO 协议的数据表大小？ {#what-is-the-overhead-of-the-socketio-protocol}
 
@@ -208,7 +208,7 @@ io.of("/admin").on("connection", (socket) => {
 
 :::
 
-You can find the details of the Socket.IO protocol [here](../08-Miscellaneous/sio-protocol.md).
+您可以在[这里](../08-Miscellaneous/sio-protocol.md)找到 Socket.IO 协议的详细信息。
 
 ### 有些东西不能正常工作，想要获取帮助？ {#something-does-not-work-properly-please-help}
 

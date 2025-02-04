@@ -1,14 +1,14 @@
 ---
-title: Ending notes
+title: 结束说明
 slug: ending-notes
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Ending notes
+# 结束说明
 
-## Final server code {#final-server-code}
+## 最终服务器代码
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -194,7 +194,7 @@ if (cluster.isPrimary) {
   </TabItem>
 </Tabs>
 
-## Final client code {#final-client-code}
+## 最终客户端代码
 
 <Tabs groupId="syntax">
   <TabItem value="es6" label="ES6" default>
@@ -327,33 +327,33 @@ if (cluster.isPrimary) {
   </TabItem>
 </Tabs>
 
-## Homework {#homework}
+## 作业
 
-Here are some ideas to improve the application:
+以下是一些改进应用程序的想法：
 
-- Broadcast a message to connected users when someone connects or disconnects.
-- Add support for nicknames.
-- Don’t send the same message to the user that sent it. Instead, append the message directly as soon as they press enter.
-- Add “{user} is typing” functionality.
-- Show who’s online.
-- Add private messaging.
-- Share your improvements!
+- 当有人连接或断开连接时，向已连接用户广播消息。
+- 添加昵称支持。
+- 不要将相同的消息发送给发送它的用户，而是在他们按下回车时直接附加消息。
+- 添加“{用户} 正在输入”功能。
+- 显示在线用户。
+- 添加私人消息功能。
+- 分享你的改进！
 
-## Getting this example {#getting-this-example}
+## 获取此示例
 
-You can find it on GitHub [here](https://github.com/socketio/chat-example).
+你可以在 GitHub 上找到它 [这里](https://github.com/socketio/chat-example)。
 
 ```
 git clone https://github.com/socketio/chat-example.git
 ```
 
-## Next steps {#next-steps}
+## 下一步
 
-Please check out:
+请查看：
 
-- [our other examples](/get-started/)
-- [our Troubleshooting guide](../categories/01-Documentation/troubleshooting.md)
-- [the Emit cheatsheet](../emit-cheatsheet.md)
-- [the complete Server API](../server-api.md)
-- [the complete Client API](../client-api.md)
-- the different sections of [our guide](../categories/01-Documentation/index.md)
+- [我们的其他示例](/get-started/)
+- [我们的故障排除指南](../categories/01-Documentation/troubleshooting.md)
+- [Emit 速查表](../emit-cheatsheet.md)
+- [完整的服务器 API](../server-api.md)
+- [完整的客户端 API](../client-api.md)
+- [我们的指南](../categories/01-Documentation/index.md) 的不同部分

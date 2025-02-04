@@ -1,6 +1,6 @@
 ---
-title: Tutorial - Handling disconnections
-sidebar_label: Handling disconnections
+title: 教程 - 处理断开连接
+sidebar_label: 处理断开连接
 slug: handling-disconnections
 ---
 
@@ -9,35 +9,35 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Handling disconnections
+# 处理断开连接
 
-Now, let's highlight two really important properties of Socket.IO:
+现在，让我们强调 Socket.IO 的两个非常重要的特性：
 
-1. a Socket.IO client is not always connected
-2. a Socket.IO server does not store any event
+1. Socket.IO 客户端并不总是连接的
+2. Socket.IO 服务器不存储任何事件
 
 :::caution
 
-Even over a stable network, it is not possible to maintain a connection alive forever.
+即使在稳定的网络上，也无法永远保持连接。
 
 :::
 
-Which means that your application needs to be able to synchronize the local state of the client with the global state on the server after a temporary disconnection.
+这意味着您的应用程序需要能够在临时断开连接后，将客户端的本地状态与服务器上的全局状态同步。
 
 :::note
 
-The Socket.IO client will automatically try to reconnect after a small delay. However, any missed event during the disconnection period will effectively be lost for this client.  
+Socket.IO 客户端会在短暂延迟后自动尝试重新连接。然而，断开连接期间错过的任何事件对于该客户端来说将会丢失。
 
 :::
 
-In the context of our chat application, this implies that a disconnected client might miss some messages: 
+在我们的聊天应用程序中，这意味着断开连接的客户端可能会错过一些消息：
 
 <ThemedImage
-  alt="The disconnected client does not receive the 'chat message' event"
+  alt="断开连接的客户端未收到 'chat message' 事件"
   sources={{
     light: useBaseUrl('/images/tutorial/disconnected.png'),
     dark: useBaseUrl('/images/tutorial/disconnected-dark.png'),
   }}
 />
 
-We will see in the next steps how we can improve this.
+我们将在接下来的步骤中看到如何改进这一点。

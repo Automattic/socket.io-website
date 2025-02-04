@@ -1,24 +1,24 @@
 ---
-title: "Tutorial step #5 - Broadcasting"
-sidebar_label: "Step #5: Broadcasting"
+title: "教程步骤 #5 - 广播"
+sidebar_label: "步骤 #5: 广播"
 slug: step-5
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Broadcasting
+# 广播
 
-The next goal is for us to emit the event from the server to the rest of the users.
+接下来的目标是从服务器向其他用户发送事件。
 
-In order to send an event to everyone, Socket.IO gives us the `io.emit()` method.
+为了向所有人发送事件，Socket.IO 提供了 `io.emit()` 方法。
 
 ```js
-// this will emit the event to all connected sockets
+// 这将向所有连接的套接字发送事件
 io.emit('hello', 'world'); 
 ```
 
-If you want to send a message to everyone except for a certain emitting socket, we have the `broadcast` flag for emitting from that socket:
+如果你想向除某个特定发送套接字之外的所有人发送消息，可以使用 `broadcast` 标志从该套接字发送：
 
 ```js
 io.on('connection', (socket) => {
@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-In this case, for the sake of simplicity we’ll send the message to everyone, including the sender.
+在这个例子中，为了简单起见，我们将向所有人发送消息，包括发送者。
 
 ```js
 io.on('connection', (socket) => {
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-And on the client side when we capture a `chat message` event we’ll include it in the page.
+在客户端，当我们捕获到 `chat message` 事件时，会将其显示在页面中。
 
 <Tabs groupId="syntax">
   <TabItem value="es6" label="ES6" default>
@@ -107,7 +107,7 @@ And on the client side when we capture a `chat message` event we’ll include it
   </TabItem>
 </Tabs>
 
-Let's see it in action:
+让我们看看实际效果：
 
 <video controls autoplay="" loop="" width="100%"><source src="https://i.cloudup.com/transcoded/J4xwRU9DRn.mp4" /></video>
 
@@ -116,7 +116,7 @@ Let's see it in action:
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行这个示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/cjs/step5?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/cjs/step5?file=index.js)
@@ -125,7 +125,7 @@ You can run this example directly in your browser on:
   </TabItem>
   <TabItem value="mjs" label="ES modules" attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行这个示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/esm/step5?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/esm/step5?file=index.js)

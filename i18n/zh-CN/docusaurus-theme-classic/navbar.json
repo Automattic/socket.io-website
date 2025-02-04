@@ -1,62 +1,50 @@
 {
   "title": {
-    "message": "Socket.IO",
-    "description": "The title in the navbar"
+    "message": "Socket.IO"
   },
-  "item.label.Documentation": {
-    "message": "文档",
-    "description": "Navbar item with label Documentation"
+  "item.label.Docs": {
+    "message": "文档"
+  },
+  "item.label.Guide": {
+    "message": "指南"
   },
   "item.label.Examples": {
-    "message": "示例",
-    "description": "Navbar item with label Examples"
+    "message": "示例"
   },
   "item.label.Server API": {
-    "message": "服务器端API",
-    "description": "Navbar item with label Server API"
+    "message": "服务器端API"
   },
   "item.label.Client API": {
-    "message": "客户端API",
-    "description": "Navbar item with label Client API"
+    "message": "客户端API"
   },
   "item.label.Community": {
-    "message": "社区",
-    "description": "Navbar item with label Community"
+    "message": "社区"
   },
   "item.label.Resources": {
-    "message": "更多",
-    "description": "Navbar item with label Resources"
+    "message": "更多"
   },
   "item.label.Blog": {
-    "message": "博客",
-    "description": "Navbar item with label Blog"
+    "message": "博客"
   },
   "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
+    "message": "GitHub"
   },
   "item.label.Slack": {
-    "message": "Slack",
-    "description": "Navbar item with label Slack"
+    "message": "Slack"
   },
   "item.label.Stack Overflow": {
-    "message": "Stack Overflow",
-    "description": "Navbar item with label Stack Overflow"
+    "message": "Stack Overflow"
   },
   "item.label.Twitter": {
-    "message": "Twitter",
-    "description": "Navbar item with label Twitter"
+    "message": "Twitter"
   },
   "item.label.Become a sponsor": {
-    "message": "成为赞助商",
-    "description": "Navbar item with label Become a sponsor"
+    "message": "成为赞助商"
   },
   "item.label.CDN": {
-    "message": "CDN",
-    "description": "Navbar item with label CDN"
+    "message": "CDN"
   },
   "item.label.Admin UI": {
-    "message": "Admin UI",
-    "description": "Navbar item with label Admin UI"
+    "message": "Admin UI"
   }
 }

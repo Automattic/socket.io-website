@@ -1,30 +1,30 @@
 ---
-title: "Tutorial step #7 - Server delivery"
-sidebar_label: "Step #7: Server delivery"
+title: "教程步骤 #7 - 服务器传递"
+sidebar_label: "步骤 #7: 服务器传递"
 slug: step-7
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Server delivery
+# 服务器传递
 
-There are two common ways to synchronize the state of the client upon reconnection:
+在重新连接时同步客户端状态有两种常见方法：
 
-- either the server sends the whole state
-- or the client keeps track of the last event it has processed and the server sends the missing pieces
+- 服务器发送整个状态
+- 客户端跟踪其处理的最后一个事件，服务器发送缺失的部分
 
-Both are totally valid solutions and choosing one will depend on your use case. In this tutorial, we will go with the latter.
+这两种方案都是完全有效的，选择哪种取决于你的使用场景。在本教程中，我们将选择后者。
 
-First, let's persist the messages of our chat application. Today there are plenty of great options, we will use with [SQLite](https://www.sqlite.org/) here.
+首先，让我们持久化聊天应用程序的消息。如今有很多不错的选择，这里我们使用 [SQLite](https://www.sqlite.org/)。
 
 :::tip
 
-If you are not familiar with SQLite, there are plenty of tutorials available online, like [this one](https://www.sqlitetutorial.net/).
+如果你不熟悉 SQLite，可以在网上找到很多教程，比如 [这个](https://www.sqlitetutorial.net/)。
 
 :::
 
-Let's install the necessary packages:
+安装必要的包：
 
 <Tabs groupId="pm">
   <TabItem value="npm" label="NPM" default>
@@ -50,7 +50,7 @@ pnpm add sqlite sqlite3
   </TabItem>
 </Tabs>
 
-We will simply store each message in a SQL table:
+我们将简单地将每条消息存储在一个 SQL 表中：
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -67,13 +67,13 @@ const { open } = require('sqlite');
 
 async function main() {
   // highlight-start
-  // open the database file
+  // 打开数据库文件
   const db = await open({
     filename: 'chat.db',
     driver: sqlite3.Database
   });
 
-  // create our 'messages' table (you can ignore the 'client_offset' column for now)
+  // 创建我们的 'messages' 表（可以暂时忽略 'client_offset' 列）
   await db.exec(`
     CREATE TABLE IF NOT EXISTS messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -98,13 +98,13 @@ async function main() {
       // highlight-start
       let result;
       try {
-        // store the message in the database
+        // 将消息存储在数据库中
         result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
       } catch (e) {
-        // TODO handle the failure
+        // TODO 处理失败
         return;
       }
-      // include the offset with the message
+      // 包含偏移量与消息一起发送
       io.emit('chat message', msg, result.lastID);
       // highlight-end
     });
@@ -131,13 +131,13 @@ import { Server } from 'socket.io';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 
-// open the database file
+// 打开数据库文件
 const db = await open({
   filename: 'chat.db',
   driver: sqlite3.Database
 });
 
-// create our 'messages' table (you can ignore the 'client_offset' column for now)
+// 创建我们的 'messages' 表（可以暂时忽略 'client_offset' 列）
 await db.exec(`
   CREATE TABLE IF NOT EXISTS messages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -164,13 +164,13 @@ io.on('connection', (socket) => {
     // highlight-start
     let result;
     try {
-      // store the message in the database
+      // 将消息存储在数据库中
       result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
     } catch (e) {
-      // TODO handle the failure
+      // TODO 处理失败
       return;
     }
-    // include the offset with the message
+    // 包含偏移量与消息一起发送
     io.emit('chat message', msg, result.lastID);
     // highlight-end
   });
@@ -184,7 +184,7 @@ server.listen(3000, () => {
   </TabItem>
 </Tabs>
 
-The client will then keep track of the offset:
+客户端将跟踪偏移量：
 
 <Tabs groupId="syntax">
   <TabItem value="es6" label="ES6" default>
@@ -263,7 +263,7 @@ The client will then keep track of the offset:
   </TabItem>
 </Tabs>
 
-And finally the server will send the missing messages upon (re)connection:
+最后，服务器将在（重新）连接时发送缺失的消息：
 
 ```js title="index.js"
 // [...]
@@ -274,7 +274,7 @@ io.on('connection', async (socket) => {
     try {
       result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
     } catch (e) {
-      // TODO handle the failure
+      // TODO 处理失败
       return;
     }
     io.emit('chat message', msg, result.lastID);
@@ -282,7 +282,7 @@ io.on('connection', async (socket) => {
 
   // highlight-start
   if (!socket.recovered) {
-    // if the connection state recovery was not successful
+    // 如果连接状态恢复不成功
     try {
       await db.each('SELECT id, content FROM messages WHERE id > ?',
         [socket.handshake.auth.serverOffset || 0],
@@ -291,7 +291,7 @@ io.on('connection', async (socket) => {
         }
       )
     } catch (e) {
-      // something went wrong
+      // 出现错误
     }
   }
   // highlight-end
@@ -300,16 +300,16 @@ io.on('connection', async (socket) => {
 // [...]
 ```
 
-Let's see it in action:
+让我们看看实际效果：
 
 <video controls width="100%"><source src="/videos/tutorial/server-delivery.mp4" /></video>
 
-As you can see in the video above, it works both after a temporary disconnection and a full page refresh.
+如上面视频所示，它在临时断开连接和完全刷新页面后都能正常工作。
 
 :::tip
 
-The difference with the "Connection state recovery" feature is that a successful recovery might not need to hit your main database (it might fetch the messages from a Redis stream for example).
+与“连接状态恢复”功能的区别在于，成功的恢复可能不需要访问主数据库（例如，它可能从 Redis 流中获取消息）。
 
 :::
 
-OK, now let's talk about the client delivery.
+好了，现在让我们讨论客户端传递。

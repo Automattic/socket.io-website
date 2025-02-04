@@ -1,26 +1,26 @@
 ---
-title: "Tutorial step #3 - Integrating Socket.IO"
-sidebar_label: "Step #3: Integrating Socket.IO"
+title: "教程步骤 #3 - 集成 Socket.IO"
+sidebar_label: "步骤 #3: 集成 Socket.IO"
 slug: step-3
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Integrating Socket.IO
+# 集成 Socket.IO
 
-Socket.IO is composed of two parts:
+Socket.IO 由两部分组成：
 
-- A server that integrates with (or mounts on) the Node.JS HTTP Server (the [`socket.io`](https://www.npmjs.com/package/socket.io) package)
-- A client library that loads on the browser side (the [`socket.io-client`](https://www.npmjs.com/package/socket.io-client) package)
+- 一个与 Node.JS HTTP 服务器集成（或挂载）的服务器（[`socket.io`](https://www.npmjs.com/package/socket.io) 包）
+- 一个在浏览器端加载的客户端库（[`socket.io-client`](https://www.npmjs.com/package/socket.io-client) 包）
 
-During development, `socket.io` serves the client automatically for us, as we’ll see, so for now we only have to install one module:
+在开发过程中，`socket.io` 会自动为我们提供客户端服务，如我们将看到的，因此现在我们只需安装一个模块：
 
 ```
 npm install socket.io
 ```
 
-That will install the module and add the dependency to `package.json`. Now let’s edit `index.js` to add it:
+这将安装模块并将依赖项添加到 `package.json`。现在让我们编辑 `index.js` 来添加它：
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default>
@@ -92,10 +92,10 @@ server.listen(3000, () => {
   </TabItem>
 </Tabs>
 
-Notice that I initialize a new instance of `socket.io` by passing the `server` (the HTTP server) object. Then I listen on the `connection` event for incoming sockets and log it to the console.
+注意，我通过传递 `server`（HTTP 服务器）对象来初始化一个新的 `socket.io` 实例。然后我监听 `connection` 事件以接收传入的套接字并将其记录到控制台。
 
 
-Now in index.html add the following snippet before the `</body>` (end body tag):
+现在在 `index.html` 中，在 `</body>`（结束 body 标签）之前添加以下代码片段：
 
 <Tabs groupId="syntax">
   <TabItem value="es6" label="ES6" default>
@@ -120,33 +120,33 @@ Now in index.html add the following snippet before the `</body>` (end body tag):
   </TabItem>
 </Tabs>
 
-That’s all it takes to load the `socket.io-client`, which exposes an `io` global (and the endpoint `GET /socket.io/socket.io.js`), and then connect.
+这就是加载 `socket.io-client` 所需的全部内容，它会暴露一个全局的 `io`（以及端点 `GET /socket.io/socket.io.js`），然后进行连接。
 
-If you would like to use the local version of the client-side JS file, you can find it at `node_modules/socket.io/client-dist/socket.io.js`.
+如果你想使用客户端 JS 文件的本地版本，可以在 `node_modules/socket.io/client-dist/socket.io.js` 找到它。
 
 :::tip
 
-You can also use a CDN instead of the local files (e.g. `<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>`).
+你也可以使用 CDN 而不是本地文件（例如 `<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>`）。
 
 :::
 
-Notice that I’m not specifying any URL when I call `io()`, since it defaults to trying to connect to the host that serves the page.
+注意，当我调用 `io()` 时，我没有指定任何 URL，因为它默认尝试连接到提供页面的主机。
 
 :::note
 
-If you're behind a reverse proxy such as apache or nginx please take a look at [the documentation for it](/docs/v4/reverse-proxy/).
+如果你在使用反向代理（如 apache 或 nginx），请查看[相关文档](/docs/v4/reverse-proxy/)。
 
-If you're hosting your app in a folder that is *not* the root of your website (e.g., `https://example.com/chatapp`) then you also need to specify the [path](/docs/v4/server-options/#path) in both the server and the client.
+如果你的应用托管在网站的非根目录下（例如 `https://example.com/chatapp`），那么你还需要在服务器和客户端中指定[path](/docs/v4/server-options/#path)。
 
 :::
 
-If you now restart the process (by hitting Control+C and running `node index.js` again) and then refresh the webpage you should see the console print “a user connected”.
+如果你现在重新启动进程（按 Control+C 然后再次运行 `node index.js`）并刷新网页，你应该会看到控制台打印“a user connected”。
 
-Try opening several tabs, and you’ll see several messages.
+尝试打开多个标签页，你会看到多条消息。
 
-<img src="/images/chat-4.png" alt="A console displaying several messages, indicating that some users have connected" />
+<img src="/images/chat-4.png" alt="控制台显示多条消息，表明有用户已连接" />
 
-Each socket also fires a special `disconnect` event:
+每个套接字还会触发一个特殊的 `disconnect` 事件：
 
 ```js
 io.on('connection', (socket) => {
@@ -157,16 +157,16 @@ io.on('connection', (socket) => {
 });
 ```
 
-Then if you refresh a tab several times you can see it in action.
+然后，如果你多次刷新一个标签页，你可以看到它的效果。
 
-<img src="/images/chat-5.png" alt="A console displaying several messages, indicating that some users have connected and disconnected" />
+<img src="/images/chat-5.png" alt="控制台显示多条消息，表明有用户已连接和断开连接" />
 
 :::info
 
 <Tabs groupId="lang">
   <TabItem value="cjs" label="CommonJS" default attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/cjs/step3?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/cjs/step3?file=index.js)
@@ -175,7 +175,7 @@ You can run this example directly in your browser on:
   </TabItem>
   <TabItem value="mjs" label="ES modules" attributes={{ className: 'display-none' }}>
 
-You can run this example directly in your browser on:
+你可以在浏览器中直接运行此示例：
 
 - [CodeSandbox](https://codesandbox.io/p/sandbox/github/socketio/chat-example/tree/esm/step3?file=index.js)
 - [StackBlitz](https://stackblitz.com/github/socketio/chat-example/tree/esm/step3?file=index.js)
