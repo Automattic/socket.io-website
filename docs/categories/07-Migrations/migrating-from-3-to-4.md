@@ -25,6 +25,30 @@ Here is the complete list of changes:
   - [`autoUnref` option](#autounref-option)
 - [Known migration issues](#known-migration-issues)
 
+## Codemods
+### Socket.io v4 Codemods
+To assist with the upgrade from Socket.io 3.x to 4.0, Codemod provides open-source codemods that automatically transform your code to many of the new APIs and patterns.
+
+Run the following codemod to automatically update your code for Socket.io v4 migration:
+
+```
+npx codemod@latest socket.io/4/migration-recipe
+
+```
+This will run the following codemods from the Socket.io Codemod repository:
+- **socket.io/4/ws-engine-format-update**
+- **socket.io/4/removing-useless-broadcast-flag**
+
+Each of these codemods automates the changes listed in the v4 migration guide.
+For a complete list of available Fastify codemods and further details, 
+see the [codemod registry](https://codemod.com/registry?q=socket.io).
+
+If you have any feedback for codemods run this command:
+
+```
+npx codemod feedback
+```
+
 ### Breaking changes
 
 #### `io.to()` is now immutable
@@ -78,6 +102,12 @@ const io = require("socket.io")(httpServer, {
   wsEngine: require("eiows").Server
 });
 ```
+
+> **Note**: Codemod updates the format of ws-engine:
+>
+> ```bash
+> npx codemod@latest socket.io/4/ws-engine-format-update
+> ```
 
 ### Configuration
 
@@ -322,3 +352,9 @@ socket.broadcast.to("room1").emit(/* ... */);
 // INVALID
 socket.to("room1").broadcast.emit(/* ... */);
 ```
+
+> **Note**: Codemod removes `broadcast flag` with:
+>
+> ```bash
+> npx codemod@latest socket.io/4/removing-useless-broadcast-flag
+> ```
